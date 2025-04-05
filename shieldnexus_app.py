@@ -281,43 +281,43 @@ with admin_tabs[1]:
 
     st.info(f"{len(filtered)} vendor(s) found. You can add export, view, and review actions here.")
     
-# -------- Charts to enhance visibility --------
-st.markdown("### 📊 Visual Insights")
-
-# 1. Vendor Count by Status
-status_counts = filtered["Status"].value_counts().reset_index()
-status_counts.columns = ["Status", "Count"]
-fig1 = px.bar(
-    status_counts,
-    x="Status",
-    y="Count",
-    color="Status",
-    title="Vendors by Status",
-    template="plotly_dark",
-)
-st.plotly_chart(fig1, use_container_width=True)
-
-# 2. Risk Score by Vendor Type (Box Plot)
-fig2 = px.box(
-    filtered,
-    x="Type",
-    y="Risk Score",
-    color="Type",
-    title="Risk Score Distribution by Vendor Type",
-    template="plotly_dark"
-)
-st.plotly_chart(fig2, use_container_width=True)
-
-# 3. Top 5 Riskiest Vendors
-top_risky = filtered.sort_values("Risk Score", ascending=True).head(5)
-fig3 = px.bar(
-    top_risky,
-    x="Risk Score",
-    y="Vendor Name",
-    orientation="h",
-    color="Risk Score",
-    title="Top 5 Riskiest Vendors",
-    template="plotly_dark",
-    color_continuous_scale="reds"
-)
-st.plotly_chart(fig3, use_container_width=True)
+    # -------- Charts to enhance visibility --------
+    st.markdown("### 📊 Visual Insights")
+    
+    # 1. Vendor Count by Status
+    status_counts = filtered["Status"].value_counts().reset_index()
+    status_counts.columns = ["Status", "Count"]
+    fig1 = px.bar(
+        status_counts,
+        x="Status",
+        y="Count",
+        color="Status",
+        title="Vendors by Status",
+        template="plotly_dark",
+    )
+    st.plotly_chart(fig1, use_container_width=True)
+    
+    # 2. Risk Score by Vendor Type (Box Plot)
+    fig2 = px.box(
+        filtered,
+        x="Type",
+        y="Risk Score",
+        color="Type",
+        title="Risk Score Distribution by Vendor Type",
+        template="plotly_dark"
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+    
+    # 3. Top 5 Riskiest Vendors
+    top_risky = filtered.sort_values("Risk Score", ascending=True).head(5)
+    fig3 = px.bar(
+        top_risky,
+        x="Risk Score",
+        y="Vendor Name",
+        orientation="h",
+        color="Risk Score",
+        title="Top 5 Riskiest Vendors",
+        template="plotly_dark",
+        color_continuous_scale="reds"
+    )
+    st.plotly_chart(fig3, use_container_width=True)
