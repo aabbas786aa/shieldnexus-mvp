@@ -243,3 +243,10 @@ if login_type == "Admin View":
         st.markdown("<hr style='margin-top:-10px; margin-bottom:20px;'>", unsafe_allow_html=True)
         # ---- Recent Activity ----
         st.subheader("📰 Recent Activity")
+
+if login_type == "Admin View":
+    st.write("Admin view selected")  # Debug statement
+    st.session_state["user_type"] = "admin"
+    st.header("🧭 ShieldNexus Admin Console")
+    
+    # Your existing code...
