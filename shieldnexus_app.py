@@ -250,3 +250,33 @@ if login_type == "Admin View":
     st.header("🧭 ShieldNexus Admin Console")
     
     # Your existing code...
+# --------- TAB 2: VENDOR INTELLIGENCE HUB ---------
+with admin_tabs[1]:
+    st.markdown("### 🧠 Vendor Intelligence Hub")
+    st.markdown("Manage, filter, and monitor vendors in real-time.")
+
+    # Filters
+    st.subheader("🔍 Filters")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        filter_type = st.selectbox("Vendor Type", ["All"] + sorted(vendor_data["Type"].unique()))
+    with col2:
+        filter_status = st.selectbox("Status", ["All", "Qualified", "Pending", "Rejected"])
+    with col3:
+        risk_threshold = st.slider("Minimum Risk Score", 0, 100, 0)
+
+    # Apply filters
+    filtered = vendor_data.copy()
+    if filter_type != "All":
+        filtered = filtered[filtered["Type"] == filter_type]
+    if filter_status != "All":
+        filtered = filtered[filtered["Status"] == filter_status]
+    filtered = filtered[filtered["Risk Score"] >= risk_threshold]
+
+    # Add sample "Last Submitted" column for visual realism
+    filtered["Last Submitted"] = pd.date_range(end=pd.Timestamp("today"), periods=len(filtered)).strftime("%Y-%m-%d")
+
+    st.markdown("### 📋 Filtered Vendors")
+    st.dataframe(filtered.style.format({"Risk Score": "{:.1f}"}))
+
+    st.info(f"{len(filtered)} vendor(s) found. You can add export, view, and review actions here.")
