@@ -178,3 +178,68 @@ if login_type == "Vendor (Security Provider)":
             "Action": f"Submitted package: {submitted_doc.name}",
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
+# ---------------- ADMIN WORKFLOW ----------------
+if login_type == "Admin View":
+    st.session_state["user_type"] = "admin"
+    st.header("🧭 ShieldNexus Admin Console")
+
+    admin_tabs = st.tabs(["Dashboard Overview", "Vendor Intelligence Hub", "Compliance Heatmap"])
+
+    # --------- TAB 1: DASHBOARD OVERVIEW ---------
+    with admin_tabs[0]:
+        st.markdown("### 📊 Dashboard Overview")
+        st.markdown("<hr style='margin-top:-10px; margin-bottom:20px;'>", unsafe_allow_html=True)
+
+        # ---- Sample Vendor Data ----
+        vendor_data = pd.DataFrame({
+            "Vendor Name": [
+                "TrustLock", "CyberSentinel", "SkyArmor", "RiskProof",
+                "FortiTech", "BreachZero", "DataShield", "NetWall"
+            ],
+            "Type": [
+                "MSSP", "Software", "Platform", "Systems Integrator",
+                "MSSP", "Implementation", "Software", "Platform"
+            ],
+            "Status": [
+                "Qualified", "Pending", "Qualified", "Rejected",
+                "Pending", "Qualified", "Pending", "Qualified"
+            ],
+            "Risk Score": [82, 67, 91, 45, 60, 85, 70, 88]
+        })
+
+        # ---- KPI Cards ----
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Vendors", len(vendor_data))
+        with col2:
+            st.metric("Qualified", (vendor_data["Status"] == "Qualified").sum())
+        with col3:
+            st.metric("Pending Vetting", (vendor_data["Status"] == "Pending").sum())
+        with col4:
+            avg_risk = vendor_data["Risk Score"].mean()
+            st.metric("Avg Risk Score", f"{avg_risk:.1f}")
+
+        # ---- Vendor Type Filter ----
+        vendor_type_filter = st.selectbox(
+            "Filter by Vendor Type",
+            options=["All"] + sorted(vendor_data["Type"].unique().tolist())
+        )
+
+        filtered_data = vendor_data if vendor_type_filter == "All" else vendor_data[vendor_data["Type"] == vendor_type_filter]
+
+        # ---- Pie Chart: Vendor Type Breakdown ----
+        pie_data = vendor_data["Type"].value_counts().reset_index()
+        pie_data.columns = ["Vendor Type", "Count"]
+        fig = px.pie(pie_data, names="Vendor Type", values="Count", title="Vendor Type Breakdown", template="plotly_dark")
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown("<hr style='margin-top:-10px; margin-bottom:20px;'>", unsafe_allow_html=True)
+        # ---- Bar Chart: Risk Score Distribution ----
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.histplot(vendor_data["Risk Score"], bins=10, kde=True, ax=ax)
+        ax.set_title("Risk Score Distribution")
+        ax.set_xlabel("Risk Score")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+        st.markdown("<hr style='margin-top:-10px; margin-bottom:20px;'>", unsafe_allow_html=True)
+        # ---- Recent Activity ----
+        st.subheader("📰 Recent Activity")
