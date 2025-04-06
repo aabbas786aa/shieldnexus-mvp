@@ -250,115 +250,115 @@ if login_type == "Admin View":
     st.header("🧭 ShieldNexus Admin Console")
     
     # Your existing code...
-# --------- TAB 2: VENDOR INTELLIGENCE HUB ---------
-with admin_tabs[1]:
-    st.markdown("### 🧠 Vendor Intelligence Hub")
-    st.markdown("Manage, filter, and monitor vendors in real-time.")
-
-    # Filters
-    st.subheader("🔍 Filters")
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        filter_type = st.selectbox("Vendor Type", ["All"] + sorted(vendor_data["Type"].unique()))
-    with col2:
-        filter_status = st.selectbox("Status", ["All", "Qualified", "Pending", "Rejected"])
-    with col3:
-        risk_threshold = st.slider("Minimum Risk Score", 0, 100, 0)
-
-    # Apply filters
-    filtered = vendor_data.copy()
-    if filter_type != "All":
-        filtered = filtered[filtered["Type"] == filter_type]
-    if filter_status != "All":
-        filtered = filtered[filtered["Status"] == filter_status]
-    filtered = filtered[filtered["Risk Score"] >= risk_threshold]
-
-    # Add sample "Last Submitted" column for visual realism
-    filtered["Last Submitted"] = pd.date_range(end=pd.Timestamp("today"), periods=len(filtered)).strftime("%Y-%m-%d")
-
-    st.markdown("### 📋 Filtered Vendors")
-    st.dataframe(filtered.style.format({"Risk Score": "{:.1f}"}))
-
-    st.info(f"{len(filtered)} vendor(s) found. You can add export, view, and review actions here.")
+    # --------- TAB 2: VENDOR INTELLIGENCE HUB ---------
+    with admin_tabs[1]:
+        st.markdown("### 🧠 Vendor Intelligence Hub")
+        st.markdown("Manage, filter, and monitor vendors in real-time.")
     
-    # -------- Charts to enhance visibility --------
-    st.markdown("### 📊 Visual Insights")
+        # Filters
+        st.subheader("🔍 Filters")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            filter_type = st.selectbox("Vendor Type", ["All"] + sorted(vendor_data["Type"].unique()))
+        with col2:
+            filter_status = st.selectbox("Status", ["All", "Qualified", "Pending", "Rejected"])
+        with col3:
+            risk_threshold = st.slider("Minimum Risk Score", 0, 100, 0)
     
-    # 1. Vendor Count by Status
-    status_counts = filtered["Status"].value_counts().reset_index()
-    status_counts.columns = ["Status", "Count"]
-    fig1 = px.bar(
-        status_counts,
-        x="Status",
-        y="Count",
-        color="Status",
-        title="Vendors by Status",
-        template="plotly_dark",
-    )
-    st.plotly_chart(fig1, use_container_width=True)
+        # Apply filters
+        filtered = vendor_data.copy()
+        if filter_type != "All":
+            filtered = filtered[filtered["Type"] == filter_type]
+        if filter_status != "All":
+            filtered = filtered[filtered["Status"] == filter_status]
+        filtered = filtered[filtered["Risk Score"] >= risk_threshold]
     
-    # 2. Risk Score by Vendor Type (Box Plot)
-    fig2 = px.box(
-        filtered,
-        x="Type",
-        y="Risk Score",
-        color="Type",
-        title="Risk Score Distribution by Vendor Type",
-        template="plotly_dark"
-    )
-    st.plotly_chart(fig2, use_container_width=True)
+        # Add sample "Last Submitted" column for visual realism
+        filtered["Last Submitted"] = pd.date_range(end=pd.Timestamp("today"), periods=len(filtered)).strftime("%Y-%m-%d")
     
-    # 3. Top 5 Riskiest Vendors
-    top_risky = filtered.sort_values("Risk Score", ascending=True).head(5)
-    fig3 = px.bar(
-        top_risky,
-        x="Risk Score",
-        y="Vendor Name",
-        orientation="h",
-        color="Risk Score",
-        title="Top 5 Riskiest Vendors",
-        template="plotly_dark",
-        color_continuous_scale="reds"
-    )
-    st.plotly_chart(fig3, use_container_width=True)
+        st.markdown("### 📋 Filtered Vendors")
+        st.dataframe(filtered.style.format({"Risk Score": "{:.1f}"}))
     
-# --------- TAB 3: COMPLIANCE HEATMAP ---------
-with admin_tabs[2]:
-    st.markdown("### 🧯 Vendor Compliance Heatmap")
-    st.markdown("Snapshot of vendor control posture (click export for deeper review).")
-
-    vendors = ["TrustLock", "CyberSentinel", "SkyArmor", "RiskProof", "FortiTech"]
-    controls = ["MFA", "Encryption", "Pen Testing", "DLP", "Incident Response"]
-
-    status_options = ["Open", "In Progress", "Resolved"]
-    status_colors = {"Open": "red", "In Progress": "yellow", "Resolved": "green"}
-
-    import numpy as np
-    heatmap_df = pd.DataFrame(
-        np.random.choice(status_options, size=(len(vendors), len(controls))),
-        index=vendors, columns=controls
-    )
-
-    # ---- Export Button ----
-    st.subheader("📤 Export Compliance Matrix")
-    import io
-    output = io.BytesIO()
-    heatmap_df.to_excel(output, index=True)
-    st.download_button("Download Excel", output.getvalue(), file_name="compliance_heatmap.xlsx")
-
-    # ---- Status Summary ----
-    st.subheader("📌 Compliance Status Summary")
-    all_statuses = heatmap_df.values.flatten()
-    status_counts = pd.Series(all_statuses).value_counts()
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Open", status_counts.get("Open", 0))
-    col2.metric("In Progress", status_counts.get("In Progress", 0))
-    col3.metric("Resolved", status_counts.get("Resolved", 0))
-
-    # ---- Display Heatmap ----
-    def color_map(val):
-        return f'background-color: {status_colors.get(val, "white")}; color: black'
-
-    st.subheader("🧮 Control Matrix View")
-    st.dataframe(heatmap_df.style.applymap(color_map))
-
+        st.info(f"{len(filtered)} vendor(s) found. You can add export, view, and review actions here.")
+        
+        # -------- Charts to enhance visibility --------
+        st.markdown("### 📊 Visual Insights")
+        
+        # 1. Vendor Count by Status
+        status_counts = filtered["Status"].value_counts().reset_index()
+        status_counts.columns = ["Status", "Count"]
+        fig1 = px.bar(
+            status_counts,
+            x="Status",
+            y="Count",
+            color="Status",
+            title="Vendors by Status",
+            template="plotly_dark",
+        )
+        st.plotly_chart(fig1, use_container_width=True)
+        
+        # 2. Risk Score by Vendor Type (Box Plot)
+        fig2 = px.box(
+            filtered,
+            x="Type",
+            y="Risk Score",
+            color="Type",
+            title="Risk Score Distribution by Vendor Type",
+            template="plotly_dark"
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+        
+        # 3. Top 5 Riskiest Vendors
+        top_risky = filtered.sort_values("Risk Score", ascending=True).head(5)
+        fig3 = px.bar(
+            top_risky,
+            x="Risk Score",
+            y="Vendor Name",
+            orientation="h",
+            color="Risk Score",
+            title="Top 5 Riskiest Vendors",
+            template="plotly_dark",
+            color_continuous_scale="reds"
+        )
+        st.plotly_chart(fig3, use_container_width=True)
+    
+    # --------- TAB 3: COMPLIANCE HEATMAP ---------
+    with admin_tabs[2]:
+        st.markdown("### 🧯 Vendor Compliance Heatmap")
+        st.markdown("Snapshot of vendor control posture (click export for deeper review).")
+    
+        vendors = ["TrustLock", "CyberSentinel", "SkyArmor", "RiskProof", "FortiTech"]
+        controls = ["MFA", "Encryption", "Pen Testing", "DLP", "Incident Response"]
+    
+        status_options = ["Open", "In Progress", "Resolved"]
+        status_colors = {"Open": "red", "In Progress": "yellow", "Resolved": "green"}
+    
+        import numpy as np
+        heatmap_df = pd.DataFrame(
+            np.random.choice(status_options, size=(len(vendors), len(controls))),
+            index=vendors, columns=controls
+        )
+    
+        # ---- Export Button ----
+        st.subheader("📤 Export Compliance Matrix")
+        import io
+        output = io.BytesIO()
+        heatmap_df.to_excel(output, index=True)
+        st.download_button("Download Excel", output.getvalue(), file_name="compliance_heatmap.xlsx")
+    
+        # ---- Status Summary ----
+        st.subheader("📌 Compliance Status Summary")
+        all_statuses = heatmap_df.values.flatten()
+        status_counts = pd.Series(all_statuses).value_counts()
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Open", status_counts.get("Open", 0))
+        col2.metric("In Progress", status_counts.get("In Progress", 0))
+        col3.metric("Resolved", status_counts.get("Resolved", 0))
+    
+        # ---- Display Heatmap ----
+        def color_map(val):
+            return f'background-color: {status_colors.get(val, "white")}; color: black'
+    
+        st.subheader("🧮 Control Matrix View")
+        st.dataframe(heatmap_df.style.applymap(color_map))
+    
