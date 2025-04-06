@@ -183,7 +183,12 @@ if login_type == "Admin View":
     st.session_state["user_type"] = "admin"
     st.header("🧭 ShieldNexus Admin Console")
 
-    admin_tabs = st.tabs(["Dashboard Overview", "Vendor Intelligence Hub", "Compliance Heatmap"])
+    admin_tabs = st.tabs([
+    "Dashboard Overview",
+    "Vendor Intelligence Hub",
+    "Compliance Heatmap",
+    "Risk Monitoring"  # New tab added here!
+])
 
     # --------- TAB 1: DASHBOARD OVERVIEW ---------
     with admin_tabs[0]:
