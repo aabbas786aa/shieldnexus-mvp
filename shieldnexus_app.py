@@ -188,8 +188,9 @@ if login_type == "Admin View":
     "Vendor Intelligence Hub",
     "Compliance Heatmap",
     "Risk Monitoring",
-    "Vendor Profiles"  # New tab added here!
+    "Vendor Profiles"  # New tab!
 ])
+
 
     # --------- TAB 1: DASHBOARD OVERVIEW ---------
     with admin_tabs[0]:
@@ -426,8 +427,8 @@ if login_type == "Admin View":
             color_continuous_scale="reds"
         )
         st.plotly_chart(fig3, use_container_width=True)
+   
     # --------- TAB 5: VENDOR PROFILES ---------
-    
     with admin_tabs[4]:
         st.markdown("### 🧾 Vendor Profiles")
         st.markdown("AI-generated security intelligence profiles based on internal and external data sources.")
