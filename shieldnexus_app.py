@@ -325,22 +325,40 @@ with admin_tabs[1]:
 # --------- TAB 3: COMPLIANCE HEATMAP ---------
 with admin_tabs[2]:
     st.markdown("### 🧯 Vendor Compliance Heatmap")
-    st.markdown("Quick snapshot of where each vendor stands across critical control areas.")
+    st.markdown("Snapshot of vendor control posture (click export for deeper review).")
 
-    # Simulated compliance status data
     vendors = ["TrustLock", "CyberSentinel", "SkyArmor", "RiskProof", "FortiTech"]
     controls = ["MFA", "Encryption", "Pen Testing", "DLP", "Incident Response"]
 
     status_options = ["Open", "In Progress", "Resolved"]
     status_colors = {"Open": "red", "In Progress": "yellow", "Resolved": "green"}
 
-    # Build random status matrix
     import numpy as np
-    heatmap_df = pd.DataFrame(np.random.choice(status_options, size=(len(vendors), len(controls))),
-                              index=vendors, columns=controls)
+    heatmap_df = pd.DataFrame(
+        np.random.choice(status_options, size=(len(vendors), len(controls))),
+        index=vendors, columns=controls
+    )
 
-    # Display styled heatmap
+    # ---- Export Button ----
+    st.subheader("📤 Export Compliance Matrix")
+    import io
+    output = io.BytesIO()
+    heatmap_df.to_excel(output, index=True)
+    st.download_button("Download Excel", output.getvalue(), file_name="compliance_heatmap.xlsx")
+
+    # ---- Status Summary ----
+    st.subheader("📌 Compliance Status Summary")
+    all_statuses = heatmap_df.values.flatten()
+    status_counts = pd.Series(all_statuses).value_counts()
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Open", status_counts.get("Open", 0))
+    col2.metric("In Progress", status_counts.get("In Progress", 0))
+    col3.metric("Resolved", status_counts.get("Resolved", 0))
+
+    # ---- Display Heatmap ----
     def color_map(val):
         return f'background-color: {status_colors.get(val, "white")}; color: black'
 
+    st.subheader("🧮 Control Matrix View")
     st.dataframe(heatmap_df.style.applymap(color_map))
+
