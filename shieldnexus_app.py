@@ -490,6 +490,7 @@ if login_type == "Admin View":
 
         simulated_profiles = [
             {
+            """
                 "Vendor Name": "TrustLock",
                 "Type": "MSSP",
                 "Risk Score": 82,
@@ -508,7 +509,9 @@ if login_type == "Admin View":
                 },
                 "Notes": "Minor encryption gap. Excellent reputation in financial sector."
             },
+        
             {
+            """
                 "Vendor Name": "CyberSentinel",
                 "Type": "Software",
                 "Risk Score": 67,
