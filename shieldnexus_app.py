@@ -363,7 +363,66 @@ if login_type == "Admin View":
         st.subheader("🧮 Control Matrix View")
         st.dataframe(heatmap_df.style.applymap(color_map))
 
-     # --------- TAB 4: RISK MONITORING ---------
-    with admin_tabs[3]:  # Must be index 3 (4th tab)
+        
+    # --------- TAB 4: RISK MONITORING ---------
+    with admin_tabs[3]:
         st.markdown("### 🚨 Vendor Risk Monitoring")
+        st.markdown("Monitor vendor risks across score distributions and critical outliers.")
+    
+        # Simulated extended data for interactive visuals
+        vendor_risk_data = pd.DataFrame({
+            "Vendor Name": [
+                "TrustLock", "CyberSentinel", "SkyArmor", "RiskProof",
+                "FortiTech", "BreachZero", "DataShield", "NetWall"
+            ],
+            "Type": [
+                "MSSP", "Software", "Platform", "Systems Integrator",
+                "MSSP", "Implementation", "Software", "Platform"
+            ],
+            "Risk Score": [82, 67, 91, 45, 60, 85, 70, 88],
+            "Reputation Score": [90, 80, 70, 60, 75, 88, 69, 92]
+        })
+    
+        # -- Chart 1: Risk Score Distribution by Vendor Type (Box Plot)
+        st.subheader("📦 Risk Score Distribution by Vendor Type")
+        fig1 = px.box(
+            vendor_risk_data,
+            x="Type",
+            y="Risk Score",
+            color="Type",
+            template="plotly_dark",
+            title="How Risk Varies Across Vendor Categories"
+        )
+        fig1.update_layout(hovermode="x unified")
+        st.plotly_chart(fig1, use_container_width=True)
+    
+        # -- Chart 2: Risk Score vs Reputation Score (Scatter Plot)
+        st.subheader("🎯 Risk Score vs Reputation Score")
+        fig2 = px.scatter(
+            vendor_risk_data,
+            x="Reputation Score",
+            y="Risk Score",
+            color="Type",
+            size="Risk Score",
+            hover_name="Vendor Name",
+            template="plotly_dark",
+            title="Reputation vs Risk Landscape"
+        )
+        fig2.update_layout(hovermode="closest")
+        st.plotly_chart(fig2, use_container_width=True)
+    
+        # -- Chart 3: Top 5 Riskiest Vendors (Bar Chart)
+        st.subheader("🔥 Top 5 Riskiest Vendors")
+        top5 = vendor_risk_data.sort_values(by="Risk Score", ascending=True).head(5)
+        fig3 = px.bar(
+            top5,
+            x="Risk Score",
+            y="Vendor Name",
+            orientation="h",
+            title="Who Are the Most At-Risk Vendors?",
+            template="plotly_dark",
+            color="Risk Score",
+            color_continuous_scale="reds"
+        )
+        st.plotly_chart(fig3, use_container_width=True)
     
