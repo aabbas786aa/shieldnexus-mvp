@@ -366,4 +366,8 @@ if login_type == "Admin View":
     
         st.subheader("🧮 Control Matrix View")
         st.dataframe(heatmap_df.style.applymap(color_map))
+
+     # --------- TAB 4: RISK MONITORING ---------
+    with admin_tabs[3]:  # Must be index 3 (4th tab)
+        st.markdown("### 🚨 Vendor Risk Monitoring")
     
