@@ -249,10 +249,6 @@ if login_type == "Admin View":
         # ---- Recent Activity ----
         st.subheader("📰 Recent Activity")
 
-if login_type == "Admin View":
-    st.write("Admin view selected")  # Debug statement
-    st.session_state["user_type"] = "admin"
-    st.header("🧭 ShieldNexus Admin Console")
     
     # Your existing code...
     # --------- TAB 2: VENDOR INTELLIGENCE HUB ---------
