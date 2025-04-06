@@ -187,7 +187,8 @@ if login_type == "Admin View":
     "Dashboard Overview",
     "Vendor Intelligence Hub",
     "Compliance Heatmap",
-    "Risk Monitoring"  # New tab added here!
+    "Risk Monitoring",
+    "Vendor Profiles"  # New tab added here!
 ])
 
     # --------- TAB 1: DASHBOARD OVERVIEW ---------
@@ -425,4 +426,69 @@ if login_type == "Admin View":
             color_continuous_scale="reds"
         )
         st.plotly_chart(fig3, use_container_width=True)
+    # --------- TAB 5: VENDOR PROFILES ---------
     
+    with admin_tabs[4]:
+        st.markdown("### 🧾 Vendor Profiles")
+        st.markdown("AI-generated security intelligence profiles based on internal and external data sources.")
+    
+        simulated_profiles = [
+            {
+                "Vendor Name": "TrustLock",
+                "Type": "MSSP",
+                "Risk Score": 82,
+                "Reputation Score": 90,
+                "Certifications": ["SOC 2", "ISO 27001"],
+                "Overview": "TrustLock offers managed threat monitoring and 24/7 SOC services.",
+                "RC Scan": {
+                    "Dark Web Hits": 1,
+                    "SSL Expiry": "22 days",
+                    "Critical Vulns": 3
+                },
+                "Compliance Summary": {
+                    "MFA": "Resolved",
+                    "Encryption": "In Progress",
+                    "Pen Testing": "Open"
+                },
+                "Notes": "Minor encryption gap. Excellent reputation in financial sector."
+            },
+            {
+                "Vendor Name": "CyberSentinel",
+                "Type": "Software",
+                "Risk Score": 67,
+                "Reputation Score": 80,
+                "Certifications": ["HIPAA", "SOC 2"],
+                "Overview": "CyberSentinel builds endpoint protection platforms for healthcare clients.",
+                "RC Scan": {
+                    "Dark Web Hits": 2,
+                    "SSL Expiry": "40 days",
+                    "Critical Vulns": 5
+                },
+                "Compliance Summary": {
+                    "MFA": "Resolved",
+                    "Encryption": "Resolved",
+                    "Pen Testing": "In Progress"
+                },
+                "Notes": "Solid encryption, some patching backlog identified."
+            }
+        ]
+    
+        for profile in simulated_profiles:
+            with st.expander(f"🔍 {profile['Vendor Name']} ({profile['Type']})"):
+                st.markdown(f"**Overview:** {profile['Overview']}")
+                st.markdown(f"**Certifications:** {', '.join(profile['Certifications'])}")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("Risk Score", profile["Risk Score"])
+                    st.metric("Reputation Score", profile["Reputation Score"])
+                with col2:
+                    st.markdown("**RC Enrichment Scan:**")
+                    st.write(profile["RC Scan"])
+    
+                st.markdown("**Compliance Summary:**")
+                st.write(profile["Compliance Summary"])
+    
+                st.markdown("**Notes:**")
+                st.info(profile["Notes"])
+    
+        
