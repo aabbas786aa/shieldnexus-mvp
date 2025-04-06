@@ -321,3 +321,26 @@ with admin_tabs[1]:
         color_continuous_scale="reds"
     )
     st.plotly_chart(fig3, use_container_width=True)
+    
+# --------- TAB 3: COMPLIANCE HEATMAP ---------
+with admin_tabs[2]:
+    st.markdown("### 🧯 Vendor Compliance Heatmap")
+    st.markdown("Quick snapshot of where each vendor stands across critical control areas.")
+
+    # Simulated compliance status data
+    vendors = ["TrustLock", "CyberSentinel", "SkyArmor", "RiskProof", "FortiTech"]
+    controls = ["MFA", "Encryption", "Pen Testing", "DLP", "Incident Response"]
+
+    status_options = ["Open", "In Progress", "Resolved"]
+    status_colors = {"Open": "red", "In Progress": "yellow", "Resolved": "green"}
+
+    # Build random status matrix
+    import numpy as np
+    heatmap_df = pd.DataFrame(np.random.choice(status_options, size=(len(vendors), len(controls))),
+                              index=vendors, columns=controls)
+
+    # Display styled heatmap
+    def color_map(val):
+        return f'background-color: {status_colors.get(val, "white")}; color: black'
+
+    st.dataframe(heatmap_df.style.applymap(color_map))
