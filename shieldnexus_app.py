@@ -489,14 +489,14 @@ if login_type == "Admin View":
             st.info("Minor encryption gap. Excellent reputation in financial sector.")
 
             with st.expander("🔍 CyberSentinel (Software)"):
-            st.markdown("### 🧱 CyberSentinel Overview")
-            st.markdown("""
-            <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
-            CyberSentinel builds next-gen endpoint security platforms tailored for regulated industries. HIPAA and SOC 2 certified.
-            </div>
-            """, unsafe_allow_html=True)
-        
-            col1, col2 = st.columns(2)
+                st.markdown("### 🧱 CyberSentinel Overview")
+                st.markdown("""
+                <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
+                CyberSentinel builds next-gen endpoint security platforms tailored for regulated industries. HIPAA and SOC 2 certified.
+                </div>
+                """, unsafe_allow_html=True)
+            
+                col1, col2 = st.columns(2)
             with col1:
                 st.markdown("#### 📈 Risk & Reputation")
                 st.metric(label="Risk Score", value="67")
@@ -535,14 +535,14 @@ if login_type == "Admin View":
             st.info("Patch management automation pending. No active exposure detected.")
 
             with st.expander("🔍 SkyArmor (Platform)"):
-            st.markdown("### ☁️ SkyArmor Overview")
-            st.markdown("""
-            <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
-            SkyArmor delivers secure cloud orchestration layers and data isolation platforms for large-scale enterprises.
-            </div>
-            """, unsafe_allow_html=True)
-        
-            col1, col2 = st.columns(2)
+                st.markdown("### ☁️ SkyArmor Overview")
+                st.markdown("""
+                <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
+                SkyArmor delivers secure cloud orchestration layers and data isolation platforms for large-scale enterprises.
+                </div>
+                """, unsafe_allow_html=True)
+            
+                col1, col2 = st.columns(2)
             with col1:
                 st.markdown("#### 📈 Risk & Reputation")
                 st.metric(label="Risk Score", value="91")
