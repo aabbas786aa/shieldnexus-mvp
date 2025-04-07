@@ -442,7 +442,7 @@ with admin_tabs[4]:
         }.get(status, "#aaa")
 
     # -------- TrustLock Profile --------
-    with st.expander("🔍 TrustLock (MSSP)"):
+with st.expander("🔍 TrustLock (MSSP)"):
         st.markdown("### 🛡️ TrustLock Overview")
         st.markdown("""
         <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
@@ -489,7 +489,7 @@ with admin_tabs[4]:
         st.info("Minor encryption gap. Excellent reputation in financial sector.")
 
     # -------- CyberSentinel Profile --------
-    with st.expander("🔍 CyberSentinel (Software)"):
+with st.expander("🔍 CyberSentinel (Software)"):
         st.markdown("### 🧱 CyberSentinel Overview")
         st.markdown("""
         <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
@@ -536,7 +536,7 @@ with admin_tabs[4]:
         st.info("Patch management automation pending. No active exposure detected.")
 
     # -------- SkyArmor Profile --------
-    with st.expander("🔍 SkyArmor (Platform)"):
+with st.expander("🔍 SkyArmor (Platform)"):
         st.markdown("### ☁️ SkyArmor Overview")
         st.markdown("""
         <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
