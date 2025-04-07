@@ -487,10 +487,10 @@ if login_type == "Admin View":
 
     st.markdown("#### 📝 Notes")
     st.info("Minor encryption gap. Excellent reputation in financial sector.")
-
+"""
         simulated_profiles = [
             {
-            """
+            
                 "Vendor Name": "TrustLock",
                 "Type": "MSSP",
                 "Risk Score": 82,
@@ -511,7 +511,7 @@ if login_type == "Admin View":
             },
         
             {
-            """
+            
                 "Vendor Name": "CyberSentinel",
                 "Type": "Software",
                 "Risk Score": 67,
@@ -549,5 +549,5 @@ if login_type == "Admin View":
     
                 #st.markdown("**Notes:**")
                 #st.info(profile["Notes"])
-    
+    """
         
