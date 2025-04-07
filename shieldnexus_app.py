@@ -485,5 +485,5 @@ if login_type == "Admin View":
                 </div>
                 """, unsafe_allow_html=True)
 
-    st.markdown("#### 📝 Notes")
-    st.info("Minor encryption gap. Excellent reputation in financial sector.")
+            st.markdown("#### 📝 Notes")
+            st.info("Minor encryption gap. Excellent reputation in financial sector.")
