@@ -428,108 +428,156 @@ if login_type == "Admin View":
         )
         st.plotly_chart(fig3, use_container_width=True)
    
-    # --------- TAB 5: VENDOR PROFILES ---------
-    with admin_tabs[4]:
-        st.markdown("### 🧾 Vendor Profiles")
-        st.markdown("AI-generated security intelligence profiles based on internal and external data sources.")
+   # --------- TAB 5: VENDOR PROFILES ---------
+with admin_tabs[4]:
+    st.markdown("### 🧾 Vendor Profiles")
+    st.markdown("AI-generated security intelligence profiles based on internal and external data sources.")
 
-        with st.expander("🔍 TrustLock (MSSP)"):
-            st.markdown("### 🛡️ TrustLock Overview")
-            st.markdown("""
-            <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
-            TrustLock offers managed threat monitoring and 24/7 SOC services. Certified in SOC 2 and ISO 27001.
+    # 🔹 Shared Compliance Color Function
+    def status_color(status):
+        return {
+            "Resolved": "#66bb6a",      # green
+            "In Progress": "#fbc02d",   # yellow
+            "Open": "#e53935"           # red
+        }.get(status, "#aaa")
+
+    # -------- TrustLock Profile --------
+    with st.expander("🔍 TrustLock (MSSP)"):
+        st.markdown("### 🛡️ TrustLock Overview")
+        st.markdown("""
+        <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
+        TrustLock offers managed threat monitoring and 24/7 SOC services. Certified in SOC 2 and ISO 27001.
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("#### 📈 Risk & Reputation")
+            st.metric(label="Risk Score", value="82")
+            st.metric(label="Reputation Score", value="90")
+        with col2:
+            st.markdown("#### 🧪 Certifications")
+            st.markdown("- SOC 2 ✅")
+            st.markdown("- ISO 27001 ✅")
+
+        st.markdown("#### 🧬 Risk Cognizance Enrichment")
+        rc_cols = st.columns(3)
+        rc_cols[0].markdown("🔍 **Dark Web Hits:**")
+        rc_cols[0].markdown("<span style='color:red; font-weight:bold;'>1 match found</span>", unsafe_allow_html=True)
+
+        rc_cols[1].markdown("⏳ **SSL Expiry:**")
+        rc_cols[1].markdown("<span style='color:orange;'>22 days</span>", unsafe_allow_html=True)
+
+        rc_cols[2].markdown("🐞 **Critical Vulns:**")
+        rc_cols[2].markdown("<span style='color:red; font-weight:bold;'>3 found</span>", unsafe_allow_html=True)
+
+        st.markdown("#### ✅ Compliance Summary")
+        compliance_data_1 = {
+            "MFA": "Resolved",
+            "Encryption": "In Progress",
+            "Pen Testing": "Open"
+        }
+        comp_cols = st.columns(len(compliance_data_1))
+        for idx, (control, status) in enumerate(compliance_data_1.items()):
+            comp_cols[idx].markdown(f"""
+            <div style='background-color:{status_color(status)}; padding:10px; border-radius:8px; text-align:center; color:black; font-weight:bold;'>
+            {control}<br>{status}
             </div>
             """, unsafe_allow_html=True)
-        
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("#### 📈 Risk & Reputation")
-                st.metric(label="Risk Score", value="82")
-                st.metric(label="Reputation Score", value="90")
-            with col2:
-                st.markdown("#### 🧪 Certifications")
-                st.markdown("- SOC 2 ✅")
-                st.markdown("- ISO 27001 ✅")
-        
-            # RC Enrichment
-            st.markdown("#### 🧬 Risk Cognizance Enrichment")
-            rc_cols = st.columns(3)
-            rc_cols[0].markdown("🔍 **Dark Web Hits:**")
-            rc_cols[0].markdown("<span style='color:red; font-weight:bold;'>1 match found</span>", unsafe_allow_html=True)
-        
-            rc_cols[1].markdown("⏳ **SSL Expiry:**")
-            rc_cols[1].markdown("<span style='color:orange;'>22 days</span>", unsafe_allow_html=True)
-        
-            rc_cols[2].markdown("🐞 **Critical Vulns:**")
-            rc_cols[2].markdown("<span style='color:red; font-weight:bold;'>3 found</span>", unsafe_allow_html=True)
-        
-            # Compliance Summary with status boxes
-            st.markdown("#### ✅ Compliance Summary")
-            compliance_data = {
-                "MFA": "Resolved",
-                "Encryption": "In Progress",
-                "Pen Testing": "Open"
-            }
-            def status_color(status):
-                return {
-                    "Resolved": "#66bb6a",      # green
-                    "In Progress": "#fbc02d",   # yellow
-                    "Open": "#e53935"           # red
-                }.get(status, "#aaa")
-        
-            comp_cols = st.columns(len(compliance_data))
-            for idx, (control, status) in enumerate(compliance_data.items()):
-                comp_cols[idx].markdown(f"""
-                <div style='background-color:{status_color(status)}; padding:10px; border-radius:8px; text-align:center; color:black; font-weight:bold;'>
-                {control}<br>{status}
-                </div>
-                """, unsafe_allow_html=True)
 
-            st.markdown("#### 📝 Notes")
-            st.info("Minor encryption gap. Excellent reputation in financial sector.")
+        st.markdown("#### 📝 Notes")
+        st.info("Minor encryption gap. Excellent reputation in financial sector.")
 
-            with st.expander("🔍 CyberSentinel (Software)"):
-                st.markdown("### 🧱 CyberSentinel Overview")
-                st.markdown("""
-                <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
-                CyberSentinel builds next-gen endpoint security platforms tailored for regulated industries. HIPAA and SOC 2 certified.
-                </div>
-                """, unsafe_allow_html=True)
-            
-                col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("#### 📈 Risk & Reputation")
-                st.metric(label="Risk Score", value="67")
-                st.metric(label="Reputation Score", value="80")
-            with col2:
-                st.markdown("#### 🧪 Certifications")
-                st.markdown("- HIPAA ✅")
-                st.markdown("- SOC 2 ✅")
-        
-            st.markdown("#### 🧬 Risk Cognizance Enrichment")
-            rc_cols = st.columns(3)
-            rc_cols[0].markdown("🔍 **Dark Web Hits:**")
-            rc_cols[0].markdown("<span style='color:red; font-weight:bold;'>2 matches found</span>", unsafe_allow_html=True)
-        
-            rc_cols[1].markdown("⏳ **SSL Expiry:**")
-            rc_cols[1].markdown("<span style='color:orange;'>40 days</span>", unsafe_allow_html=True)
-        
-            rc_cols[2].markdown("🐞 **Critical Vulns:**")
-            rc_cols[2].markdown("<span style='color:red;'>5 found</span>", unsafe_allow_html=True)
-        
-            st.markdown("#### ✅ Compliance Summary")
-            compliance_data = {
-                "MFA": "Resolved",
-                "Encryption": "Resolved",
-                "Pen Testing": "In Progress"
-            }
-            comp_cols = st.columns(len(compliance_data))
-            for idx, (control, status) in enumerate(compliance_data.items()):
-                comp_cols[idx].markdown(f"""
-                <div style='background-color:{status_color(status)}; padding:10px; border-radius:8px; text-align:center; color:black; font-weight:bold;'>
-                {control}<br>{status}
-                </div>
-                """, unsafe_allow_html=True)
-        
-            st.markdown("#### 📝 Notes")
-            st.info("Patch management automation pending. No active exposure detected.")
+    # -------- CyberSentinel Profile --------
+    with st.expander("🔍 CyberSentinel (Software)"):
+        st.markdown("### 🧱 CyberSentinel Overview")
+        st.markdown("""
+        <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
+        CyberSentinel builds next-gen endpoint security platforms tailored for regulated industries. HIPAA and SOC 2 certified.
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("#### 📈 Risk & Reputation")
+            st.metric(label="Risk Score", value="67")
+            st.metric(label="Reputation Score", value="80")
+        with col2:
+            st.markdown("#### 🧪 Certifications")
+            st.markdown("- HIPAA ✅")
+            st.markdown("- SOC 2 ✅")
+
+        st.markdown("#### 🧬 Risk Cognizance Enrichment")
+        rc_cols = st.columns(3)
+        rc_cols[0].markdown("🔍 **Dark Web Hits:**")
+        rc_cols[0].markdown("<span style='color:red; font-weight:bold;'>2 matches found</span>", unsafe_allow_html=True)
+
+        rc_cols[1].markdown("⏳ **SSL Expiry:**")
+        rc_cols[1].markdown("<span style='color:orange;'>40 days</span>", unsafe_allow_html=True)
+
+        rc_cols[2].markdown("🐞 **Critical Vulns:**")
+        rc_cols[2].markdown("<span style='color:red;'>5 found</span>", unsafe_allow_html=True)
+
+        st.markdown("#### ✅ Compliance Summary")
+        compliance_data_2 = {
+            "MFA": "Resolved",
+            "Encryption": "Resolved",
+            "Pen Testing": "In Progress"
+        }
+        comp_cols = st.columns(len(compliance_data_2))
+        for idx, (control, status) in enumerate(compliance_data_2.items()):
+            comp_cols[idx].markdown(f"""
+            <div style='background-color:{status_color(status)}; padding:10px; border-radius:8px; text-align:center; color:black; font-weight:bold;'>
+            {control}<br>{status}
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("#### 📝 Notes")
+        st.info("Patch management automation pending. No active exposure detected.")
+
+    # -------- SkyArmor Profile --------
+    with st.expander("🔍 SkyArmor (Platform)"):
+        st.markdown("### ☁️ SkyArmor Overview")
+        st.markdown("""
+        <div style='padding:10px; background-color:#2c2c2c; border-radius:10px;'>
+        SkyArmor delivers secure cloud orchestration layers and data isolation platforms for large-scale enterprises.
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("#### 📈 Risk & Reputation")
+            st.metric(label="Risk Score", value="91")
+            st.metric(label="Reputation Score", value="70")
+        with col2:
+            st.markdown("#### 🧪 Certifications")
+            st.markdown("- ISO 27001 ✅")
+            st.markdown("- FedRAMP (Pending) ⚠️")
+
+        st.markdown("#### 🧬 Risk Cognizance Enrichment")
+        rc_cols = st.columns(3)
+        rc_cols[0].markdown("🔍 **Dark Web Hits:**")
+        rc_cols[0].markdown("<span style='color:red;'>3 matches found</span>", unsafe_allow_html=True)
+
+        rc_cols[1].markdown("⏳ **SSL Expiry:**")
+        rc_cols[1].markdown("<span style='color:orange;'>15 days</span>", unsafe_allow_html=True)
+
+        rc_cols[2].markdown("🐞 **Critical Vulns:**")
+        rc_cols[2].markdown("<span style='color:red; font-weight:bold;'>7 found</span>", unsafe_allow_html=True)
+
+        st.markdown("#### ✅ Compliance Summary")
+        compliance_data_3 = {
+            "MFA": "In Progress",
+            "Encryption": "Resolved",
+            "Pen Testing": "Open"
+        }
+        comp_cols = st.columns(len(compliance_data_3))
+        for idx, (control, status) in enumerate(compliance_data_3.items()):
+            comp_cols[idx].markdown(f"""
+            <div style='background-color:{status_color(status)}; padding:10px; border-radius:8px; text-align:center; color:black; font-weight:bold;'>
+            {control}<br>{status}
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("#### 📝 Notes")
+        st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
