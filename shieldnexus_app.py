@@ -144,7 +144,7 @@ if login_type == "Customer (CISO Team)":
     </script>
     """, unsafe_allow_html=True)
 
-     selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
+    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
     if st.button("📥 Export Vendor Report"):
         output = io.BytesIO()
         vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
