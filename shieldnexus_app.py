@@ -403,7 +403,6 @@ if login_type == "Admin View":
 
 
 # Simulated AI Matching Logic
-def simulate_shieldinsights_trigger(use_case):
     # For demo purposes, always return vendors we have profiles for
     return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
