@@ -86,13 +86,13 @@ if login_type == "Customer (CISO Team)":
 
     matched_vendors = simulate_shieldinsights_trigger(use_case)
 
-    st.subheader("🔍 AI-Matched Vendors")
-    vendor_df = pd.DataFrame({
-        "Vendor Name": matched_vendors,
-        "Capability Match": ["IAM, GRC", "Cloud, IAM", "GRC, Risk Mgmt"][:len(matched_vendors)],
-        "Composite Score": [91, 88, 84][:len(matched_vendors)],
-        "Risk Level": ["Low", "Medium", "Medium"][:len(matched_vendors)],
-        "Reputation Score": [95, 89, 86][:len(matched_vendors)]
+   # st.subheader("🔍 AI-Matched Vendors")
+   # vendor_df = pd.DataFrame({
+    #    "Vendor Name": matched_vendors,
+     #   "Capability Match": ["IAM, GRC", "Cloud, IAM", "GRC, Risk Mgmt"][:len(matched_vendors)],
+     #   "Composite Score": [91, 88, 84][:len(matched_vendors)],
+    #   "Risk Level": ["Low", "Medium", "Medium"][:len(matched_vendors)],
+   #     "Reputation Score": [95, 89, 86][:len(matched_vendors)]
 
         # ---------------- Hyperlinked Vendor Profile View from Customer Panel ----------------
     st.subheader("🔍 AI-Matched Vendors")
@@ -145,14 +145,14 @@ if login_type == "Customer (CISO Team)":
     st.markdown("**Risk Score:** 91 | **Reputation:** 70 | **Certifications:** ISO 27001, FedRAMP (Pending)")
     st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
     })
-    st.dataframe(vendor_df)
+    #st.dataframe(vendor_df)
 
-    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
-    if st.button("📥 Export Vendor Report"):
-        output = io.BytesIO()
-        vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
-        st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
-        st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+    #selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
+    #if st.button("📥 Export Vendor Report"):
+    #    output = io.BytesIO()
+    #    vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
+    #    st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
+    #    st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
 
     st.subheader("📅 Engagement Timeline View")
     timeline_data = pd.DataFrame({
