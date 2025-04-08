@@ -60,15 +60,15 @@ if "vendor_grc_data" not in st.session_state:
 # ---------------- AI Matching Function ----------------
 
     # Updated to return vendors with defined profiles for demo purposes
-        return ["TrustLock", "CyberSentinel", "SkyArmor"]
+    return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
-     #   return ["SecureEdge", "MergiTrust", "DataDefend"]
-  #  elif use_case == "IAM Remediation":
-    #    return ["CloudSentinel", "TrustWare"]
-   # elif use_case == "Cloud Security Hardening":
-      #  return ["SkyFence", "NetArmor"]
-   # else:
-      #  return ["TrustWare", "SecureEdge"]
+        return ["SecureEdge", "MergiTrust", "DataDefend"]
+    elif use_case == "IAM Remediation":
+        return ["CloudSentinel", "TrustWare"]
+    elif use_case == "Cloud Security Hardening":
+        return ["SkyFence", "NetArmor"]
+    else:
+        return ["TrustWare", "SecureEdge"]
 
 # ---------------- CUSTOMER WORKFLOW ----------------
 # ---------------- CUSTOMER WORKFLOW ----------------
@@ -400,6 +400,13 @@ if login_type == "Admin View":
         # ---- Export Button ----
         st.subheader("📤 Export Compliance Matrix")
         import io
+
+
+# Simulated AI Matching Logic
+def simulate_shieldinsights_trigger(use_case):
+    # For demo purposes, always return vendors we have profiles for
+    return ["TrustLock", "CyberSentinel", "SkyArmor"]
+
         output = io.BytesIO()
         heatmap_df.to_excel(output, index=True)
         st.download_button("Download Excel", output.getvalue(), file_name="compliance_heatmap.xlsx")
