@@ -64,6 +64,7 @@ def simulate_shieldinsights_trigger(use_case):
         return ["TrustWare", "SecureEdge"]
 
 # ---------------- CUSTOMER WORKFLOW ----------------
+# ---------------- CUSTOMER WORKFLOW ----------------
 if login_type == "Customer (CISO Team)":
     st.session_state["user_type"] = "customer"
     st.header("🤝 From ShieldInsights.ai to ShieldNexus.ai")
@@ -86,15 +87,6 @@ if login_type == "Customer (CISO Team)":
 
     matched_vendors = simulate_shieldinsights_trigger(use_case)
 
-   # st.subheader("🔍 AI-Matched Vendors")
-   # vendor_df = pd.DataFrame({
-    #    "Vendor Name": matched_vendors,
-     #   "Capability Match": ["IAM, GRC", "Cloud, IAM", "GRC, Risk Mgmt"][:len(matched_vendors)],
-     #   "Composite Score": [91, 88, 84][:len(matched_vendors)],
-    #   "Risk Level": ["Low", "Medium", "Medium"][:len(matched_vendors)],
-   #     "Reputation Score": [95, 89, 86][:len(matched_vendors)]
-
-        # ---------------- Hyperlinked Vendor Profile View from Customer Panel ----------------
     st.subheader("🔍 AI-Matched Vendors")
     vendor_df = pd.DataFrame({
         "Vendor Name": matched_vendors,
@@ -104,7 +96,6 @@ if login_type == "Customer (CISO Team)":
         "Reputation Score": [95, 89, 86][:len(matched_vendors)]
     })
 
-    # Inject Hyperlinks (simulate with anchor tags for now)
     def make_link(vendor):
         profile_map = {
             "TrustLock": "#trustlock-profile",
@@ -125,6 +116,8 @@ if login_type == "Customer (CISO Team)":
 
     st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
+   
+
     # ---------------- Anchor Sections for Vendor Profiles ----------------
     st.markdown("<h2 id='trustlock-profile'>🔍 TrustLock (MSSP)</h2>", unsafe_allow_html=True)
     st.markdown("**Risk Score:** 82 | **Reputation:** 90 | **Certifications:** SOC 2, ISO 27001")
@@ -137,8 +130,8 @@ if login_type == "Customer (CISO Team)":
     st.markdown("<h2 id='skyarmor-profile'>🔍 SkyArmor (Platform)</h2>", unsafe_allow_html=True)
     st.markdown("**Risk Score:** 91 | **Reputation:** 70 | **Certifications:** ISO 27001, FedRAMP (Pending)")
     st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
-    
 
+    # Optional JS to scroll to anchor if needed
     st.markdown("""
     <script>
     const hash = window.location.hash;
@@ -151,22 +144,12 @@ if login_type == "Customer (CISO Team)":
     </script>
     """, unsafe_allow_html=True)
 
-    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
+     selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
     if st.button("📥 Export Vendor Report"):
         output = io.BytesIO()
         vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
         st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
         st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
-
-
-    #st.dataframe(vendor_df)
-
-    #selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
-    #if st.button("📥 Export Vendor Report"):
-    #    output = io.BytesIO()
-    #    vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
-    #    st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
-    #    st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
 
     st.subheader("📅 Engagement Timeline View")
     timeline_data = pd.DataFrame({
