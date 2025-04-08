@@ -93,6 +93,57 @@ if login_type == "Customer (CISO Team)":
         "Composite Score": [91, 88, 84][:len(matched_vendors)],
         "Risk Level": ["Low", "Medium", "Medium"][:len(matched_vendors)],
         "Reputation Score": [95, 89, 86][:len(matched_vendors)]
+
+        # ---------------- Hyperlinked Vendor Profile View from Customer Panel ----------------
+    st.subheader("🔍 AI-Matched Vendors")
+    vendor_df = pd.DataFrame({
+        "Vendor Name": matched_vendors,
+        "Capability Match": ["IAM, GRC", "Cloud, IAM", "GRC, Risk Mgmt"][:len(matched_vendors)],
+        "Composite Score": [91, 88, 84][:len(matched_vendors)],
+        "Risk Level": ["Low", "Medium", "Medium"][:len(matched_vendors)],
+        "Reputation Score": [95, 89, 86][:len(matched_vendors)]
+    })
+
+    # Inject Hyperlinks (simulate with anchor tags for now)
+    def make_link(vendor):
+        profile_map = {
+            "TrustLock": "#trustlock-profile",
+            "CyberSentinel": "#cybersentinel-profile",
+            "SkyArmor": "#skyarmor-profile",
+        }
+        if vendor in profile_map:
+            return f"<a href='{profile_map[vendor]}' target='_self'>{vendor}</a>"
+        return vendor
+
+    vendor_df["Vendor Profile"] = vendor_df["Vendor Name"].apply(lambda x: make_link(x))
+
+    st.markdown("""
+    <style>
+    table td a { color: #4FC3F7; font-weight: bold; text-decoration: none; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
+    if st.button("📥 Export Vendor Report"):
+        output = io.BytesIO()
+        vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
+        st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
+        st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+
+# ---------------- Anchor Sections for Vendor Profiles ----------------
+    st.markdown("<h2 id='trustlock-profile'>🔍 TrustLock (MSSP)</h2>", unsafe_allow_html=True)
+    st.markdown("**Risk Score:** 82 | **Reputation:** 90 | **Certifications:** SOC 2, ISO 27001")
+    st.info("Minor encryption gap. Excellent reputation in financial sector.")
+
+    st.markdown("<h2 id='cybersentinel-profile'>🔍 CyberSentinel (Software)</h2>", unsafe_allow_html=True)
+    st.markdown("**Risk Score:** 67 | **Reputation:** 80 | **Certifications:** HIPAA, SOC 2")
+    st.info("Patch management automation pending. No active exposure detected.")
+
+    st.markdown("<h2 id='skyarmor-profile'>🔍 SkyArmor (Platform)</h2>", unsafe_allow_html=True)
+    st.markdown("**Risk Score:** 91 | **Reputation:** 70 | **Certifications:** ISO 27001, FedRAMP (Pending)")
+    st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
     })
     st.dataframe(vendor_df)
 
