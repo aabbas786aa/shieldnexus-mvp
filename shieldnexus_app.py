@@ -110,14 +110,14 @@ if login_type == "Customer (CISO Team)":
     })
 
     def make_link(vendor):
-        profile_map = {
-            "TrustLock": "#trustlock-profile",
-            "CyberSentinel": "#cybersentinel-profile",
-            "SkyArmor": "#skyarmor-profile",
-        }
-        if vendor in profile_map:
-            return f"<a href='{profile_map[vendor]}' target='_self'>{vendor}</a>"
-        return vendor
+    profile_map = {
+        "TrustLock": "https://shieldnexus-mvp-integration-shieldinsights.streamlit.app/#trustlock-profile",
+        "CyberSentinel": "https://shieldnexus-mvp-integration-shieldinsights.streamlit.app/#cybersentinel-profile",
+        "SkyArmor": "https://shieldnexus-mvp-integration-shieldinsights.streamlit.app/#skyarmor-profile",
+    }
+    if vendor in profile_map:
+        return f"<a href='{profile_map[vendor]}' target='_blank'>{vendor}</a>"
+    return vendor
 
     vendor_df["Vendor Profile"] = vendor_df["Vendor Name"].apply(lambda x: make_link(x))
 
@@ -127,7 +127,7 @@ if login_type == "Customer (CISO Team)":
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
    
 
