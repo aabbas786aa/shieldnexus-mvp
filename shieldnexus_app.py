@@ -125,14 +125,7 @@ if login_type == "Customer (CISO Team)":
 
     st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
-    if st.button("📥 Export Vendor Report"):
-        output = io.BytesIO()
-        vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
-        st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
-        st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
-
-# ---------------- Anchor Sections for Vendor Profiles ----------------
+    # ---------------- Anchor Sections for Vendor Profiles ----------------
     st.markdown("<h2 id='trustlock-profile'>🔍 TrustLock (MSSP)</h2>", unsafe_allow_html=True)
     st.markdown("**Risk Score:** 82 | **Reputation:** 90 | **Certifications:** SOC 2, ISO 27001")
     st.info("Minor encryption gap. Excellent reputation in financial sector.")
@@ -145,6 +138,27 @@ if login_type == "Customer (CISO Team)":
     st.markdown("**Risk Score:** 91 | **Reputation:** 70 | **Certifications:** ISO 27001, FedRAMP (Pending)")
     st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
     })
+
+    st.markdown("""
+    <script>
+    const hash = window.location.hash;
+    if (hash) {
+        const target = document.querySelector(hash);
+        if (target) {
+            target.scrollIntoView({behavior: "smooth"});
+        }
+    }
+    </script>
+    """, unsafe_allow_html=True)
+
+    selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
+    if st.button("📥 Export Vendor Report"):
+        output = io.BytesIO()
+        vendor_df[vendor_df["Vendor Name"] == selected_vendor].to_excel(output, index=False)
+        st.download_button("Download Excel Report", data=output.getvalue(), file_name=f"{selected_vendor}_report.xlsx")
+        st.session_state["admin_logs"].append({"User Type": "Customer", "Action": f"Exported report: {selected_vendor}", "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+
+
     #st.dataframe(vendor_df)
 
     #selected_vendor = st.selectbox("📋 Choose vendor to export report:", vendor_df["Vendor Name"])
