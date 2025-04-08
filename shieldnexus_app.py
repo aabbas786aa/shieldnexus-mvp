@@ -63,10 +63,12 @@ if "vendor_grc_data" not in st.session_state:
 
 # ---------------- AI Matching Function ----------------
 
-    # Updated to return vendors with defined profiles for demo purposes
-    return ["TrustLock", "CyberSentinel", "SkyArmor"]
+    # ---------------- AI Matching Function ----------------
 
-        return ["SecureEdge", "MergiTrust", "DataDefend"]
+def simulate_shieldinsights_trigger(use_case):
+    # For demo purposes, always return vendors we have profiles for
+    if use_case == "M&A Integration Support":
+        return ["TrustLock", "CyberSentinel", "SkyArmor"]
     elif use_case == "IAM Remediation":
         return ["CloudSentinel", "TrustWare"]
     elif use_case == "Cloud Security Hardening":
