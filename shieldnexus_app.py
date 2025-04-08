@@ -1,7 +1,11 @@
 
+
+# Simulated AI Matching Logic
 def simulate_shieldinsights_trigger(use_case):
-    # Updated to return vendors with defined profiles for demo purposes
+    # For demo purposes, always return vendors we have profiles for
     return ["TrustLock", "CyberSentinel", "SkyArmor"]
+
+
 
 # ShieldNexus.ai MVP – With Export, Admin View, Tooltips, Customer & Vendor Tracking
 
@@ -403,8 +407,6 @@ if login_type == "Admin View":
 
 
 # Simulated AI Matching Logic
-    # For demo purposes, always return vendors we have profiles for
-    return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
         output = io.BytesIO()
         heatmap_df.to_excel(output, index=True)
