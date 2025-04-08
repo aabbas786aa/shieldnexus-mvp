@@ -1,3 +1,8 @@
+
+def simulate_shieldinsights_trigger(use_case):
+    # Updated to return vendors with defined profiles for demo purposes
+    return ["TrustLock", "CyberSentinel", "SkyArmor"]
+
 # ShieldNexus.ai MVP – With Export, Admin View, Tooltips, Customer & Vendor Tracking
 
 import streamlit as st
@@ -54,7 +59,6 @@ if "vendor_grc_data" not in st.session_state:
 
 # ---------------- AI Matching Function ----------------
 
-def simulate_shieldinsights_trigger(use_case):
     # Updated to return vendors with defined profiles for demo purposes
     return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
