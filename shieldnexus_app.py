@@ -137,7 +137,7 @@ if login_type == "Customer (CISO Team)":
     st.markdown("<h2 id='skyarmor-profile'>🔍 SkyArmor (Platform)</h2>", unsafe_allow_html=True)
     st.markdown("**Risk Score:** 91 | **Reputation:** 70 | **Certifications:** ISO 27001, FedRAMP (Pending)")
     st.warning("Multiple legacy ports exposed. Rapid remediation in progress.")
-    })
+    
 
     st.markdown("""
     <script>
