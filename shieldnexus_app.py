@@ -127,7 +127,7 @@ if login_type == "Customer (CISO Team)":
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+    st.markdown(vendor_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
    
 
