@@ -96,15 +96,15 @@ if login_type == "Customer (CISO Team)":
         "Reputation Score": [95, 89, 86][:len(matched_vendors)]
     })
 
-    def make_link(vendor):
-        profile_map = {
-            "TrustLock": "#trustlock-profile",
-            "CyberSentinel": "#cybersentinel-profile",
-            "SkyArmor": "#skyarmor-profile",
-        }
-        if vendor in profile_map:
-            return f"<a href='{profile_map[vendor]}' target='_self'>{vendor}</a>"
-        return vendor
+        def make_link(vendor):
+            profile_map = {
+                "TrustLock": "#trustlock-profile",
+                "CyberSentinel": "#cybersentinel-profile",
+                "SkyArmor": "#skyarmor-profile",
+            }
+            if vendor in profile_map:
+                return f"<a href='{profile_map[vendor]}' target='_self'>{vendor}</a>"
+            return vendor
 
     vendor_df["Vendor Profile"] = vendor_df["Vendor Name"].apply(lambda x: make_link(x))
 
