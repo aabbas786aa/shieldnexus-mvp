@@ -60,7 +60,7 @@ if "vendor_grc_data" not in st.session_state:
 # ---------------- AI Matching Function ----------------
 
     # Updated to return vendors with defined profiles for demo purposes
-    return ["TrustLock", "CyberSentinel", "SkyArmor"]
+        return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
      #   return ["SecureEdge", "MergiTrust", "DataDefend"]
   #  elif use_case == "IAM Remediation":
