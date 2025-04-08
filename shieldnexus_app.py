@@ -62,13 +62,13 @@ if "vendor_grc_data" not in st.session_state:
     # Updated to return vendors with defined profiles for demo purposes
     return ["TrustLock", "CyberSentinel", "SkyArmor"]
 
-        return ["SecureEdge", "MergiTrust", "DataDefend"]
-    elif use_case == "IAM Remediation":
-        return ["CloudSentinel", "TrustWare"]
-    elif use_case == "Cloud Security Hardening":
-        return ["SkyFence", "NetArmor"]
-    else:
-        return ["TrustWare", "SecureEdge"]
+     #   return ["SecureEdge", "MergiTrust", "DataDefend"]
+  #  elif use_case == "IAM Remediation":
+    #    return ["CloudSentinel", "TrustWare"]
+   # elif use_case == "Cloud Security Hardening":
+      #  return ["SkyFence", "NetArmor"]
+   # else:
+      #  return ["TrustWare", "SecureEdge"]
 
 # ---------------- CUSTOMER WORKFLOW ----------------
 # ---------------- CUSTOMER WORKFLOW ----------------
